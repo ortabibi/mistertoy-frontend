@@ -1,6 +1,35 @@
-import './App.css'
+import { BrowserRouter as Router } from 'react-router-dom'
+import { Route, Routes } from 'react-router-dom'
+import { Provider } from 'react-redux'
+
+import { AppHeader } from './cmps/AppHeader.jsx'
+
+import { AboutUs } from './pages/AboutUs.jsx'
+import { ToyIndex } from './pages/ToyIndex.jsx'
+import { store } from './store/store.js'
+import { ToyEdit } from './pages/ToyEdit.jsx'
+import { ToyDetails } from './pages/ToyDetails.jsx'
+
 
 export function App() {
-return <h1>hello vite</h1>
+  return (
+    <Provider store={store}>
+      <Router>
+        <section className="app">
+          <AppHeader />
+          <main className='main-layout'>
+            <Routes>
+              <Route element={<AboutUs />} path="/about" />
+              <Route element={<ToyIndex />} path="/toy" />
+              <Route element={<ToyEdit />} path="/toy/edit" />
+              <Route element={<ToyEdit />} path="/toy/edit/:toyId" />
+              <Route element={<ToyDetails />} path="/toy/:toyId" />
+              <Route element={<UserDetails />} path="/user/:userId" />
+            </Routes>
+          </main>
+        </section>
+      </Router>
+    </Provider>
+  )
 }
 
