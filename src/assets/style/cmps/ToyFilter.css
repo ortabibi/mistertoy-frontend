@@ -1,0 +1,69 @@
+.toy-filter {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.8em;
+    background-color: white;
+    padding: 1em;
+    margin: 1em 0;
+    border-radius: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.toy-filter input {
+    flex-grow: 1;
+    min-width: 200px;
+}
+
+.toy-filter .labels-dropdown {
+    position: relative;
+}
+
+.toy-filter .labels-dropdown summary {
+    list-style: none;
+    cursor: pointer;
+    padding: 0.5em 1em;
+    border: 2px solid var(--clr1);
+    border-radius: 10px;
+    background-color: white;
+}
+
+.toy-filter .labels-dropdown summary::after {
+    content: ' ▾';
+}
+
+.toy-filter .labels-menu {
+    position: absolute;
+    top: calc(100% + 0.3em);
+    left: 0;
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    min-width: 180px;
+    padding: 0.5em;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.toy-filter .labels-menu label {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    padding: 0.3em 0.5em;
+    border-radius: 6px;
+    font-weight: normal;
+    cursor: pointer;
+}
+
+.toy-filter .labels-menu label:hover {
+    background-color: var(--clr1bg-light);
+}
+
+.toy-filter .labels-menu input {
+    flex-grow: 0;
+    min-width: 0;
+    padding: 0;
+    margin: 0;
+    accent-color: var(--clr1);
+}

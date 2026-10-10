@@ -1,10 +1,15 @@
-import { useState, useEffect } from 'react'
+import { toyService } from '../services/toy.service.js'
+import { useState, useEffect, useRef } from 'react'
+
+import { utilService } from "../services/util.service.js"
+
 
 export function ToyFilter({ filterBy, onSetFilter }) {
     const [filterByToEdit, setFilterByToEdit] = useState({ ...filterBy })
+    const debouncedOnSetFilter = useRef(utilService.debounce(onSetFilter, 300)).current
 
     useEffect(() => {
-        onSetFilter(filterByToEdit)
+        debouncedOnSetFilter(filterByToEdit)
     }, [filterByToEdit])
 
     function handleChange({ target }) {
@@ -13,6 +18,15 @@ export function ToyFilter({ filterBy, onSetFilter }) {
             value = value === '' ? undefined : value === 'true'
         }
         setFilterByToEdit(prevFilter => ({ ...prevFilter, [field]: value }))
+    }
+
+    function onToggleLabel(label) {
+        setFilterByToEdit(prevFilter => {
+            const labels = prevFilter.labels.includes(label)
+                ? prevFilter.labels.filter(currLabel => currLabel !== label)
+                : [...prevFilter.labels, label]
+            return { ...prevFilter, labels }
+        })
     }
 
     const inStockValue = filterByToEdit.inStock === undefined ? '' : String(filterByToEdit.inStock)
@@ -39,6 +53,24 @@ export function ToyFilter({ filterBy, onSetFilter }) {
                 <option value="price">Price</option>
                 <option value="createdAt">Created</option>
             </select>
+
+            <details className="labels-dropdown">
+                <summary>
+                    {filterByToEdit.labels.length ? `Labels (${filterByToEdit.labels.length})` : 'All labels'}
+                </summary>
+                <div className="labels-menu">
+                    {toyService.getLabels().map(label => (
+                        <label key={label}>
+                            <input
+                                type="checkbox"
+                                checked={filterByToEdit.labels.includes(label)}
+                                onChange={() => onToggleLabel(label)}
+                            />
+                            {label}
+                        </label>
+                    ))}
+                </div>
+            </details>
         </section>
     )
 }

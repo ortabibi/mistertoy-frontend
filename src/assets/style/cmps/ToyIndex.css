@@ -1,0 +1,25 @@
+.toy-index {
+    padding: 1em 0;
+
+    h3 {
+        font-size: 2em;
+        color: var(--clr1);
+        text-align: center;
+    }
+
+    a {
+        display: inline-block;
+        color: white;
+        background-color: var(--clr2);
+        padding: 0.5em 1.2em;
+        border-radius: 20px;
+        font-weight: bold;
+        margin: 0.25em;
+    }
+
+    hr {
+        border: none;
+        border-top: 2px dashed var(--clr1);
+        margin-top: 2em;
+    }
+}

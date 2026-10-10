@@ -1,0 +1,33 @@
+.toy-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 1em;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.toy-list li {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: white;
+    padding: 1em;
+    border-radius: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.toy-list .actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.3em;
+    margin-top: 1em;
+}
+
+.toy-list .actions button,
+.toy-list .actions a {
+    font-size: 0.85em;
+    padding: 0.4em 0.9em;
+    margin: 0;
+}

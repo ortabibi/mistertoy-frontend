@@ -1,0 +1,53 @@
+.toy-edit {
+    max-width: 500px;
+    margin: 2em auto;
+    background-color: white;
+    padding: 2em;
+    border-radius: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.toy-edit h2 {
+    text-align: center;
+    color: var(--clr1);
+    font-size: 2em;
+}
+
+.toy-edit form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+}
+
+.toy-edit label {
+    margin-top: 0.5em;
+}
+
+.toy-edit input[type="checkbox"] {
+    align-self: flex-start;
+}
+
+.toy-edit select[multiple] {
+    height: 10em;
+}
+
+.toy-edit form div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+    margin-top: 1.5em;
+}
+
+.toy-edit form div a {
+    color: var(--gray3);
+    padding: 0.5em 1.2em;
+    border: 2px solid var(--gray2);
+    border-radius: 20px;
+    font-weight: bold;
+}
+
+.toy-edit form div a:hover {
+    border-color: var(--clr1);
+    color: var(--clr1);
+}

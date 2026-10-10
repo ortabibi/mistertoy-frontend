@@ -1,0 +1,26 @@
+button {
+    cursor: pointer;
+    color: white;
+    background-color: var(--clr1);
+    border: 0;
+    border-radius: 20px;
+    padding: 0.5em 1.2em;
+    margin: 0.25em;
+    font-weight: bold;
+
+    &:hover {
+        background-color: var(--clr2);
+    }
+}
+
+input,
+select {
+    padding: 0.5em;
+    border: 2px solid var(--clr1);
+    border-radius: 10px;
+
+    &:focus {
+        outline: none;
+        border-color: var(--clr2);
+    }
+}

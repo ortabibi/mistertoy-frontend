@@ -3,6 +3,8 @@ import { utilService } from './util.service.js'
 
 const BASE_URL = 'toy/'
 
+const labels = ['On wheels', 'Box game', 'Art', 'Baby', 'Doll', 'Puzzle', 'Outdoor', 'Battery Powered']
+
 export const toyService = {
     query,
     getById,
@@ -10,7 +12,8 @@ export const toyService = {
     remove,
     getEmptyToy,
     getDefaultFilter,
-    getRandomToy
+    getRandomToy,
+    getLabels,
 }
 
 function query(filterBy = {}) {
@@ -19,7 +22,6 @@ function query(filterBy = {}) {
 
 function getById(toyId) {
     return httpService.get(BASE_URL + toyId)
-
 }
 
 function remove(toyId) {
@@ -36,20 +38,29 @@ function save(toy) {
 
 function getEmptyToy() {
     return {
-        vendor: '',
+        name: '',
+        imgUrl: '',
         price: '',
-        speed: '',
+        labels: [],
+        inStock: true,
     }
 }
 
 function getRandomToy() {
+    const shuffledLabels = [...labels].sort(() => Math.random() - 0.5)
     return {
-        vendor: 'Susita-' + (Date.now() % 1000),
-        price: utilService.getRandomIntInclusive(1000, 9000),
-        speed: utilService.getRandomIntInclusive(90, 200),
+        name: 'Toy-' + (Date.now() % 1000),
+        imgUrl: 'hardcoded-url-for-now',
+        price: utilService.getRandomIntInclusive(20, 300),
+        labels: shuffledLabels.slice(0, utilService.getRandomIntInclusive(1, 3)),
+        inStock: Math.random() > 0.3,
     }
 }
 
 function getDefaultFilter() {
-    return { txt: '', maxPrice: '', minSpeed: '' }
+    return { txt: '', inStock: undefined, labels: [], sortBy: '' }
+}
+
+function getLabels() {
+    return [...labels]
 }

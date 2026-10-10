@@ -62,6 +62,7 @@ export function ToyEdit() {
                     value={toyToEdit.name}
                     onChange={handleChange}
                 />
+
                 <label htmlFor="price">Price : </label>
                 <input type="number"
                     name="price"
@@ -70,6 +71,26 @@ export function ToyEdit() {
                     value={toyToEdit.price}
                     onChange={handleChange}
                 />
+                
+                <label htmlFor="inStock">In stock : </label>
+                <input type="checkbox"
+                    name="inStock"
+                    id="inStock"
+                    checked={toyToEdit.inStock}
+                    onChange={handleChange}
+                />
+
+                <label htmlFor="labels">Labels : </label>
+                <select multiple
+                    name="labels"
+                    id="labels"
+                    value={toyToEdit.labels}
+                    onChange={handleChange}
+                >
+                    {toyService.getLabels().map(label => (
+                        <option key={label} value={label}>{label}</option>
+                    ))}
+                </select>
 
                 <div>
                     <button>{toyToEdit._id ? 'Save' : 'Add'}</button>

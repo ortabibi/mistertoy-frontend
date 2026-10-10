@@ -62,7 +62,7 @@ export function ToyIndex() {
     }
 
     return (
-        <div>
+        <div className="toy-index">
             <h3>Toys App</h3>
             <main>
                 <Link to="/toy/edit">Add Toy</Link>

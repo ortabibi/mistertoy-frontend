@@ -1,0 +1,34 @@
+:root {
+  /* Main colors */
+  --clr1: #e8590c;
+  --clr2: #5f3dc4;
+
+  /* Backgrounds, derived from the main colors with color-mix */
+  --clr1bg: color-mix(in srgb, var(--clr1), white 80%);
+  --clr1bg-light: color-mix(in srgb, var(--clr1), white 92%);
+  --clr2bg: color-mix(in srgb, var(--clr2), white 75%);
+  --clr2bg-light: color-mix(in srgb, var(--clr2), white 90%);
+
+  /* Darker shades for hover */
+  --clr1-dark: color-mix(in srgb, var(--clr1), black 20%);
+  --clr2-dark: color-mix(in srgb, var(--clr2), black 20%);
+
+  /* Grays */
+  --gray1: rgb(240, 240, 240);
+  --gray2: rgb(155, 155, 155);
+  --gray3: rgb(44, 44, 44);
+
+  /* Status */
+  --clr-success: #2f9e44;
+  --clr-danger: #e03131;
+
+  /* Spacing and shapes */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2.5rem;
+
+  --radius: 0.75rem;
+  --shadow: 0 2px 8px color-mix(in srgb, var(--gray3), transparent 85%);
+}

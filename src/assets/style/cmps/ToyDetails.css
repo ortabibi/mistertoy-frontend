@@ -1,0 +1,37 @@
+.toy-details {
+    max-width: 500px;
+    margin: 2em auto;
+    background-color: white;
+    padding: 2em;
+    border-radius: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.toy-details h1 {
+    color: var(--clr1);
+    font-size: 2.2em;
+}
+
+.toy-details p {
+    font-size: 1.1em;
+}
+
+.toy-details .actions {
+    display: flex;
+    justify-content: center;
+    gap: 1em;
+    margin-top: 1.5em;
+}
+
+.toy-details .actions a {
+    color: white;
+    background-color: var(--clr2);
+    padding: 0.5em 1.2em;
+    border-radius: 20px;
+    font-weight: bold;
+}
+
+.toy-details .actions a:hover {
+    background-color: var(--clr1);
+}
