@@ -17,6 +17,9 @@
 @import 'cmps/ToyDetails.css';
 @import 'cmps/ToyEdit.css';
 @import 'cmps/UserMsg.css';
+@import 'cmps/NicePopup.css';
+@import 'cmps/Chat.css';
+
 
 
 .app {

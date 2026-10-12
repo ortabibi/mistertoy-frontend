@@ -1,0 +1,24 @@
+.chat ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1em;
+    height: 150px;
+    overflow-y: auto;
+}
+
+.chat li {
+    padding: 0.3em 0.5em;
+}
+
+.chat li:nth-child(odd) {
+    background-color: var(--gray1);
+}
+
+.chat form {
+    display: flex;
+    gap: 0.5em;
+}
+
+.chat input {
+    flex-grow: 1;
+}
