@@ -15,6 +15,8 @@ export function ToyIndex() {
     const toys = useSelector(storeState => storeState.toyModule.toys)
     const filterBy = useSelector(storeState => storeState.toyModule.filterBy)
     const isLoading = useSelector(storeState => storeState.toyModule.isLoading)
+    const loggedinUser = useSelector(storeState => storeState.userModule.loggedinUser)
+    const isAdmin = !!loggedinUser?.isAdmin
 
     useEffect(() => {
         onLoadToys()
@@ -67,12 +69,15 @@ export function ToyIndex() {
         <div className="toy-index">
             <h3>Toys App</h3>
             <main>
-                <Link to="/toy/edit">Add Toy</Link>
-                <button className='add-btn' onClick={onAddToy}>Add Random Toy ⛐</button>
+                {isAdmin && <>
+                    <Link to="/toy/edit">Add Toy</Link>
+                    <button className='add-btn' onClick={onAddToy}>Add Random Toy ⛐</button>
+                </>}
                 <ToyFilter filterBy={filterBy} onSetFilter={onSetFilter} />
                 {!isLoading
                     ? <ToyList
                         toys={toys}
+                        isAdmin={isAdmin}
                         onRemoveToy={onRemoveToy}
                         onEditToy={onEditToy}
                     />

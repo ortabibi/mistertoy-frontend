@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 import { Formik, Field, Form } from "formik";
 
@@ -13,9 +14,16 @@ export function ToyEdit() {
     const navigate = useNavigate()
     const [toyToEdit, setToyToEdit] = useState(toyService.getEmptyToy())
     const { toyId } = useParams()
+    const loggedinUser = useSelector(storeState => storeState.userModule.loggedinUser)
     // const setHasChanges = useConfirmTabClose()
 
     useEffect(() => {
+        // Non-admins who type the URL are sent back (the backend blocks them anyway)
+        if (!loggedinUser?.isAdmin) {
+            showErrorMsg('Only admin can edit toys')
+            navigate('/toy')
+            return
+        }
         if (toyId) loadToy()
     }, [])
 

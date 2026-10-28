@@ -11,6 +11,7 @@ import { ToyEdit } from './pages/ToyEdit.jsx'
 import { ToyDetails } from './pages/ToyDetails.jsx'
 import { UserMsg } from './cmps/UserMsg.jsx'
 import { Dashbord } from './pages/Dashbord.jsx'
+import { LoginSignup } from './pages/LoginSignup.jsx'
 
 
 export function App() {
@@ -27,6 +28,7 @@ export function App() {
               <Route element={<ToyEdit />} path="/toy/edit/:toyId" />
               <Route element={<ToyDetails />} path="/toy/:toyId" />
               <Route element={<Dashbord />} path="/dashbord" />
+              <Route element={<LoginSignup />} path="/login" />
             </Routes>
           </main>
           <UserMsg />

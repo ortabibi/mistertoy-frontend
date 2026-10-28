@@ -14,6 +14,7 @@ export const toyService = {
     getDefaultFilter,
     getRandomToy,
     getLabels,
+    addToyMsg,
 }
 
 function query(filterBy = {}) {
@@ -34,6 +35,10 @@ function save(toy) {
     } else {
         return httpService.post(BASE_URL, toy)
     }
+}
+
+function addToyMsg(toyId, txt) {
+    return httpService.post(BASE_URL + toyId + '/msg', { txt })
 }
 
 function getEmptyToy() {
