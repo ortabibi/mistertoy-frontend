@@ -18,32 +18,31 @@ export const toyService = {
     getLabels,
 }
 
-function query(filterBy = {}) {
-    return storageService.query(STORAGE_KEY)
-        .then(toys => {
-            if (filterBy.txt) {
-                const regExp = new RegExp(filterBy.txt, 'i')
-                toys = toys.filter(toy => regExp.test(toy.name))
-            }
+async function query(filterBy = {}) {
+    let toys = await storageService.query(STORAGE_KEY)
 
-            if (typeof filterBy.inStock === 'boolean') {
-                toys = toys.filter(toy => toy.inStock === filterBy.inStock)
-            }
+    if (filterBy.txt) {
+        const regExp = new RegExp(filterBy.txt, 'i')
+        toys = toys.filter(toy => regExp.test(toy.name))
+    }
 
-            if (filterBy.labels && filterBy.labels.length) {
-                toys = toys.filter(toy => filterBy.labels.every(label => toy.labels.includes(label)))
-            }
+    if (typeof filterBy.inStock === 'boolean') {
+        toys = toys.filter(toy => toy.inStock === filterBy.inStock)
+    }
 
-            if (filterBy.sortBy === 'name') {
-                toys.sort((toy1, toy2) => toy1.name.localeCompare(toy2.name))
-            } else if (filterBy.sortBy === 'price') {
-                toys.sort((toy1, toy2) => toy1.price - toy2.price)
-            } else if (filterBy.sortBy === 'createdAt') {
-                toys.sort((toy1, toy2) => toy2.createdAt - toy1.createdAt)
-            }
+    if (filterBy.labels && filterBy.labels.length) {
+        toys = toys.filter(toy => filterBy.labels.every(label => toy.labels.includes(label)))
+    }
 
-            return toys
-        })
+    if (filterBy.sortBy === 'name') {
+        toys.sort((toy1, toy2) => toy1.name.localeCompare(toy2.name))
+    } else if (filterBy.sortBy === 'price') {
+        toys.sort((toy1, toy2) => toy1.price - toy2.price)
+    } else if (filterBy.sortBy === 'createdAt') {
+        toys.sort((toy1, toy2) => toy2.createdAt - toy1.createdAt)
+    }
+
+    return toys
 }
 
 function getById(toyId) {

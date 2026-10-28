@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 
+import { Formik, Field, Form } from "formik";
+
 import { toyService } from "../services/toy.service.js"
 import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service.js"
 import { saveToy } from "../store/actions/toy.actions.js"
@@ -11,92 +13,67 @@ export function ToyEdit() {
     const navigate = useNavigate()
     const [toyToEdit, setToyToEdit] = useState(toyService.getEmptyToy())
     const { toyId } = useParams()
-    const setHasChanges = useConfirmTabClose()
+    // const setHasChanges = useConfirmTabClose()
 
     useEffect(() => {
         if (toyId) loadToy()
     }, [])
 
-    function loadToy() {
-        toyService.getById(toyId)
-            .then(toy => setToyToEdit(toy))
-            .catch(err => {
-                console.log('Had issues in toy edit', err)
-                navigate('/toy')
-            })
+    async function loadToy() {
+        try {
+            const toy = await toyService.getById(toyId)
+            setToyToEdit(toy)
+        } catch (err) {
+            console.log('Had issues in toy edit', err)
+            navigate('/toy')
+        }
     }
 
-    function handleChange({ target }) {
-        let { value, type, name: field } = target
-        if (type === 'number') value = +value
-        else if (type === 'checkbox') value = target.checked
-        else if (target.multiple) value = Array.from(target.selectedOptions, option => option.value)
-        setToyToEdit(prevToy => ({ ...prevToy, [field]: value }))
-        setHasChanges(true)
-    }
-
-    function onSaveToy(ev) {
-        ev.preventDefault()
-        if (!toyToEdit.price) toyToEdit.price = 1000
-        saveToy(toyToEdit)
-            .then(() => {
-                showSuccessMsg('Toy Saved!')
-                navigate('/toy')
-            })
-            .catch(err => {
-                console.log('Had issues in toy details', err)
-                showErrorMsg('Had issues in toy details')
-            })
+    async function onSaveToy(values) {
+        try {
+            await saveToy(values)
+            showSuccessMsg('Toy Saved!')
+            navigate('/toy')
+        } catch (err) {
+            console.log('Had issues saving toy', err)
+            showErrorMsg('Cannot save toy')
+        }
     }
 
     return (
         <section className="toy-edit">
             <h2>{toyToEdit._id ? 'Edit' : 'Add'} Toy</h2>
 
-            <form onSubmit={onSaveToy} >
-                <label htmlFor="name">Name : </label>
-                <input type="text"
-                    name="name"
-                    id="name"
-                    placeholder="Enter name..."
-                    value={toyToEdit.name}
-                    onChange={handleChange}
-                />
+            <Formik
+                initialValues={toyToEdit}
+                enableReinitialize
+                onSubmit={onSaveToy}
+            >
+                <Form>
+                    <label htmlFor="name">Name : </label>
+                    <Field name="name" id="name" type="text" placeholder="Enter name..." />
 
-                <label htmlFor="price">Price : </label>
-                <input type="number"
-                    name="price"
-                    id="price"
-                    placeholder="Enter price"
-                    value={toyToEdit.price}
-                    onChange={handleChange}
-                />
-                
-                <label htmlFor="inStock">In stock : </label>
-                <input type="checkbox"
-                    name="inStock"
-                    id="inStock"
-                    checked={toyToEdit.inStock}
-                    onChange={handleChange}
-                />
+                    <label htmlFor="price">Price : </label>
+                    <Field name="price" id="price" type="number" placeholder="Enter price" />
 
-                <label htmlFor="labels">Labels : </label>
-                <select multiple
-                    name="labels"
-                    id="labels"
-                    value={toyToEdit.labels}
-                    onChange={handleChange}
-                >
-                    {toyService.getLabels().map(label => (
-                        <option key={label} value={label}>{label}</option>
-                    ))}
-                </select>
+                    <label htmlFor="inStock">In stock : </label>
+                    <Field name="inStock" id="inStock" type="checkbox" />
 
-                <div>
-                    <button>{toyToEdit._id ? 'Save' : 'Add'}</button>
-                    <Link to="/toy">Cancel</Link>
-                </div>
-            </form>
+                    <label htmlFor="labels">Labels : </label>
+                    <Field as="select" name="labels" id="labels" multiple>
+                        {toyService.getLabels().map(label => (
+                            <option key={label} value={label}>{label}</option>
+                        ))}
+                    </Field>
+
+                    <div>
+                        <button type="submit">{toyToEdit._id ? 'Save' : 'Add'}</button>
+                        <Link to="/toy">Cancel</Link>
+                    </div>
+                </Form>
+            </Formik>
         </section>
     )
 }
+
+
